@@ -1,38 +1,22 @@
 <html lang="en">
         <head>
         <script>
-            function tmp() {
-                menu = document.getElementsByClassName("menu_icon")[0];
-                var classes = menu.classList;
-    
-                    //if(typeof(classes)!=){
-                    
-                        if (classes.contains("open")) {
-                            classes.remove("close");
-                            classes.add("close");
-                        } else {
-                            if (classes.contains("close")) {
-                                classes.remove("close");
-                            }
-                            classes.add("open")
-                        }
-                    }
+            /
+
                 
     
             
         </script>
         <style>
+            /*Mobile view completed*/
             body {
-                font-family: Georgia, Times, "Times New Roman", serif;
+            
+                font-family: "Avenir Next", "Avenir", sans-serif;
                 margin: 0;
                 padding: 0;
                 background: #525252;
             }
-    
-            table, tr, th {
-                height:100%;
-    
-            }
+            /* footer stuff */
             .footer {
                 position: fixed;
                 color: #707070;
@@ -42,47 +26,26 @@
                 background-color: #333333;
             }
     
-
-    
             .textwrapper{
                 display:flex;
                 flex-direction:row-reverse;
                 align-items:center;
                 position:absolute;
                 right:0%;
-    
                 height:100%;
             }
-            
-            .menu_icon {
-                position: absolute;
-                top:2vw;
-                left:2vw;
-                width: 3vw;
-                height: 3vw;
-            }
-            .midbar{
-                margin-top:.25vw;
-                margin-bottom:.25vw;
-            }
-            .bar {
-                position: relative;
-                border-radius: .5vw;
-                background-color: #333333;
-                height: 15%;
-                padding:1.5%;
-            }
+
             #link {
                 display: flex;
                 justify-content:center;
+
                 align-items:center;
                 text-align:center;
                 margin-right:2vw;
                 padding-left:1vw;
                 padding-right:1vw;
-                font-weight: bold;
-                font-size: 1.3vw;
-                margin-left:3vw;
+                font-weight: 520;
+                font-size: 4vw;
                 border-radius:.5vw;
                 right:0%;
                 height: 70%;
@@ -91,33 +54,113 @@
                 background-color: #B5B5B5;
     
             }
-    
-            .open {
-                animation: openAnim ease 1s forwards;
+            #menuToggle {
+                display: block;
+                position: relative;
+                top: 50px;
+                left: 50px;
+                
+                z-index: 1;
+                
+                -webkit-user-select: none;
+                user-select: none;
             }
-    
-            .close {
-                animation: closeAnim ease 1s forwards;
+
+            #menuToggle a{
+                text-decoration: none;
+                color: #B5B5B5;
+                
+                transition: color 0.3s ease;
             }
-    
-            @keyframes openAnim {
-                0% {
-                    transform: rotate(0deg);
-                }
-    
-                100% {
-                    transform: rotate(180deg);
-                }
+
+            #menuToggle a:hover{
+                color: tomato;
             }
-    
-            @keyframes closeAnim {
-                0% {
-                    transform: rotate(0deg);
-                }
-    
-                100% {
-                    transform: rotate(-180deg);
-                }
+
+
+            #menuToggle input {
+                display: block;
+                width: 40px;
+                height: 32px;
+                position: absolute;
+                top: -7px;
+                left: -5px;
+                
+                cursor: pointer;
+                
+                opacity: 0; 
+                z-index: 2; 
+            
+            }
+            .mainpage{
+                background-color:#B5B5B5;
+            }
+            #menuToggle span {
+                display: block;
+                width: 7vw;
+                height: 1.4vw;
+                margin-bottom: 5px;
+                position: relative;
+                
+                background: #333333;
+                border-radius: 3px;
+                
+                z-index: 1;
+                
+                transform-origin: 4px 0px;
+                
+                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                            background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                            opacity 0.55s ease;
+            }
+
+            #menuToggle span:first-child {
+                transform-origin: 0% 0%;
+            }
+
+            #menuToggle span:nth-last-child(2){
+                transform-origin: 0% 100%;
+            }
+
+            #menuToggle input:checked ~ span{
+                opacity: 1;
+                transform: rotate(45deg) translate(-.25vw, -.5vw);
+                background:#878787;
+            }
+            #menuToggle input:checked ~ span:nth-last-child(3) {
+                opacity: 0;
+                transform: rotate(0deg) scale(0.2, 0.2);
+            }
+
+            #menuToggle input:checked ~ span:nth-last-child(2)
+            {
+                transform: rotate(-45deg) translate(0, -1px);
+            }
+
+            #menu{
+                position: absolute;
+                width: 300px;
+                margin: -100px 0 0 -50px;
+                padding: 50px;
+                padding-top: 125px;
+                
+                background: #333333;
+                list-style-type: none;
+                -webkit-font-smoothing: antialiased;
+                
+                transform-origin: 0% 0%;
+                transform: translate(-100%, 0);
+                
+                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            }
+
+            #menu li{
+                padding: 20px 0;
+                font-size: 4vw;
+            }
+
+            #menuToggle input:checked ~ ul{
+                transform: none;
             }
             p{
                 margin: 0;
@@ -128,11 +171,24 @@
         </head>
         
         <body>
-            <a href="#" onclick="tmp()" class="menu_icon">
-                <div class="bar"></div>
-                <div class="bar midbar"></div>
-                <div class="bar"></div>
-            </a>
+
+            <nav role="navigation">
+                <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                
+            
+                <ul id="menu">
+                    <a href="#"><li>Home</li></a>
+                    <a href="#"><li>About</li></a>
+                    <a href="#"><li>Info</li></a>
+                    <a href="#"><li>Contact</li></a>
+                    
+                </ul>
+                </div>
+            </nav>
             <div class="footer">
                 <div class="textwrapper">
                         <a href="#" id="link"><p>Resume</p></a>
